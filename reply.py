@@ -4,8 +4,8 @@ import json
 
 def give_help(friend):
   return (
-    f"Hi {friend}! I'm the Digitizer of Goals bot, but most call me D.o.G. bot for short. \n"
-    "If you would like to hear a haiku simply say haiku. \n"
+    f"Hi {friend}! I'm the Digitizer of Goals bot, but most call me D.o.G. bot for short. \n\n"
+    "If you would like to hear a haiku simply say haiku. \n\n"
     "You can add $ before a command, and I'll handle the rest. Here's a list of current commands. \n"
     "$inspire | I will give you a random inspiring quote. \n"
     "$list | This will show you the current list of encouraging words I have for you. \n"

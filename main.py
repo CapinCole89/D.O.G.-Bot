@@ -41,9 +41,11 @@ async def on_message(message):
     encouragements = []
     poems = []
 
+    # This sets the list of encouragements
     if "encouragements" in db.keys():
       encouragements = db["encouragements"]
 
+    # This sets the list of poems
     if "haikus" in db.keys():
       poems = db["haikus"]
 
@@ -51,6 +53,7 @@ async def on_message(message):
     if any (word in msg.lower() for word in d_m.sad_words):
       await message.channel.send(random.choice(encouragements))
 
+    # This will send a random haiku from the database
     if msg.startswith("haiku"):
       await message.channel.send(random.choice(poems))
 
@@ -70,14 +73,13 @@ async def on_message(message):
 
     await message.channel.send(encouragements)
 
-
+  # This lists all encouraging messages
   if msg.startswith("$list"):
     encouragements = []
     output = ""
 
     if "encouragements" in db.keys():
       encouragements = db["encouragements"]
-
     for i in encouragements:
       output += f'{encouragements.index(i)}: {i} \n'
 
@@ -113,8 +115,8 @@ async def on_message(message):
   if msg.startswith("$un haiku)"):
     haikus = []
     if "haikus" in db.keys():
-      index = int(msg.split("$unhaiku ", 1)[1])
-      delete_haiku(index)
+      index = int(msg.split("$un haiku ", 1)[1])
+      d_m.delete_haiku(index)
       haikus = db["haikus"]
 
     await message.channel.send(haikus)
