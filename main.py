@@ -98,6 +98,8 @@ async def on_message(message):
     if msg.startswith("$responding"):
         value = msg.split("$responding ", 1)[1]
 
+        db["responding"]
+
         if value.lower() == "true":
             db["responding"] = True
             await message.channel.send('Responding is active.')
@@ -117,13 +119,18 @@ async def on_message(message):
     # This allows a user to delete a haiku
     if msg.startswith("$un haiku)"):
         haikus = []
+        output = ""
         if "haikus" in db.keys():
-            index = int(msg.split("$un haiku ", 1)[1])
+            index = int(msg.split("$un haiku", 1)[1])
             d_m.delete_haiku(index)
             haikus = db["haikus"]
 
-        await message.channel.send(haikus)
+        for i in haikus:
+            output += f'{haikus.index(i)}: {i} \n'
 
+        await message.channel.send('---Haikus---\n' + output)
+
+    # This will list all haikus
     if msg.startswith("$all haiku"):
         haikus = []
         output = ""
