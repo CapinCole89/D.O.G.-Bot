@@ -29,6 +29,9 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    def reply(string):
+        message.channel.send(string)
+
     msg = message.content.lower()
     author = str(message.author)
     friend = author[0: -5]
@@ -140,7 +143,7 @@ async def on_message(message):
         for i in haikus:
             output += f'{haikus.index(i)}: {i} \n \n'
 
-        await message.channel.send('---Haikus---\n \n' + output)
+        await reply('---Haikus---\n \n' + output)
 
 
 keep_alive()
