@@ -25,21 +25,22 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    # This ignores messages from the bot
-    if message.author == client.user:
-        return
-
-    def reply(string):
-        message.channel.send(string)
-
     msg = message.content.lower()
     author = str(message.author)
     friend = author[0: -5]
 
+    # This ignores messages from the bot
+    if message.author == client.user:
+        return
+
+    # This simplifies sending a message
+    async def answer(string):
+        await message.channel.send(string)
+
     # This sends a quote from above when asked to inspire
     if msg.startswith('$inspire'):
-        quote = reply.get_quote()
-        await message.channel.send(quote)
+        quote = reply.get_inspiration()
+        await answer(quote)
 
     # This holds the non command auto responses
     if db["responding"]:
@@ -55,21 +56,21 @@ async def on_message(message):
             poems = db["haikus"]
 
         if msg.startswith("notice me senpai"):
-            await message.channel.send("I notice you " + friend + ", but you would be better seen not heard.")
+            await answer("I notice you " + friend + ", but you would be better seen not heard.")
 
         # This will see is a message contains a sad word, then responds
         if any(word in msg.lower() for word in d_m.sad_words):
-            await message.channel.send(random.choice(encouragements))
+            await answer(random.choice(encouragements))
 
         # This will send a random haiku from the database
         if msg.startswith("haiku"):
-            await message.channel.send(random.choice(poems))
+            await answer(random.choice(poems))
 
     # this will allow a user to add a new encouraging message
     if msg.startswith("$new"):
         encouraging_message = msg.split("$new ", 1)[1]
         d_m.create_encouragement(encouraging_message)
-        await message.channel.send("New encouraging message added.")
+        await answer("New encouraging message added.")
 
     # This allows a user to delete an encouraging message
     if msg.startswith("$del"):
@@ -83,7 +84,7 @@ async def on_message(message):
         for i in encouragements:
             output += f'{encouragements.index(i)}: {i} \n'
 
-        await message.channel.send('---Encouragements---\n' + output)
+        await answer('---Encouragements---\n' + output)
 
     # This lists all encouraging messages
     if msg.startswith("$list"):
@@ -95,7 +96,7 @@ async def on_message(message):
         for i in encouragements:
             output += f'{encouragements.index(i)}: {i} \n'
 
-        await message.channel.send('---Encouragements---\n' + output)
+        await answer('---Encouragements---\n' + output)
 
     # This turns on or off auto responses
     if msg.startswith("$responding"):
@@ -108,7 +109,7 @@ async def on_message(message):
             await message.channel.send('Responding is active.')
         else:
             db["responding"] = False
-            await message.channel.send('Responding is disabled.')
+            answer('Responding is disabled.')
 
     # This list all available commands
     if msg.startswith("$help"):
@@ -117,7 +118,7 @@ async def on_message(message):
     if msg.startswith("$haiku"):
         haiku = msg.split("$haiku ", 1)[1]
         d_m.create_haiku(haiku)
-        await message.channel.send("New haiku added.")
+        await answer("New haiku added.")
 
     # This allows a user to delete a haiku
     if msg.startswith("$un haiku)"):
@@ -131,7 +132,7 @@ async def on_message(message):
         for i in haikus:
             output += f'{haikus.index(i)}: {i} \n'
 
-        await message.channel.send('---Haikus---\n' + output)
+        await answer('---Haikus---\n' + output)
 
     # This will list all haikus
     if msg.startswith("$all haiku"):
@@ -143,7 +144,7 @@ async def on_message(message):
         for i in haikus:
             output += f'{haikus.index(i)}: {i} \n \n'
 
-        await reply('---Haikus---\n \n' + output)
+        await answer('---Haikus---\n \n' + output)
 
 
 keep_alive()
