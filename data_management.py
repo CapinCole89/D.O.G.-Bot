@@ -42,4 +42,10 @@ def list_table(table_name):
     return f'---{table_name}--- \n\n {output}'
 
 
+def retrieve_entry(msg, table_name):
+    # This will retrive a specific entry from the specified table
+    index = int(msg.split(f'$get {table_name[:-1]} ', 1)[1])
+    return db[table_name][index]
+
+
 sad_words = db['sad words']

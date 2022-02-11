@@ -1,5 +1,5 @@
 from replit import db
-from data_management import create_entry, delete_entry, list_table, sad_words
+from data_management import create_entry, delete_entry, list_table, sad_words, retrieve_entry
 from message_responses import give_encouragement, give_help, toggle_responses, \
     give_inspiration, give_notice, give_haiku
 
@@ -44,6 +44,10 @@ def message_handler(message):
     # This will list all haikus in the database
     if msg.startswith('$all haiku'):
         return list_table('haikus')
+
+    # This will get a specified haiku from the database
+    if msg.startswith('$get haiku'):
+        return retrieve_entry(msg, 'haikus')
 
     # This will add a new word to the database
     if msg.startswith('$add sad word'):
