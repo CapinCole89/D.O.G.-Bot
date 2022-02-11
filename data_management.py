@@ -1,10 +1,9 @@
+from ast import Pass
 from replit import db
 
 
-def create_entry(msg, table_name):
+def create_entry(new_entry, table_name):
     # This add an entry to a table, and create the table if it does not exist
-    new_entry = msg.split(f'$add {table_name[:-1]} ', 1)[1]
-
     if table_name in db.keys():
         table_list = db[table_name]
         table_list.append(new_entry)
@@ -42,10 +41,19 @@ def list_table(table_name):
     return f'---{table_name}--- \n\n {output}'
 
 
-def retrieve_entry(msg, table_name):
+def retrieve_entry(index, table_name):
     # This will retrive a specific entry from the specified table
-    index = int(msg.split(f'$get {table_name[:-1]} ', 1)[1])
     return db[table_name][index]
+
+
+def update_entry(msg, table_name):
+    # This will update a specific entry from the specified table
+    index = int(msg.split(' ')[3])
+    new_entry = msg.split(index, 1)[1]
+    db[table_name][index] = new_entry
+
+    return db[table_name][index]
+
 
 
 sad_words = db['sad words']
