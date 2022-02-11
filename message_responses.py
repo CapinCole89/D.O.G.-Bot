@@ -1,7 +1,7 @@
+import random
 import requests
 import json
 from replit import db
-from data_management import create_entry, delete_entry
 
 
 def give_help(friend):
@@ -25,6 +25,7 @@ def give_inspiration():
     response = requests.get("https://zenquotes.io/api/random")
     json_data = json.loads(response.text)
     quote = json_data[0]['q'] + " - " + json_data[0]['a']
+
     return(quote)
 
 
@@ -61,40 +62,7 @@ def list_table(table_name):
     return f'---{table_name}--- \n\n {output}'
 
 
-async def handle_response(message):
-    msg = message.content.lower()
-    author = str(message.author)
-    friend = author[0: -5]
+def give_encouragement():
+    encouragements = db['encouragements']
 
-    async def reply(string):
-        await message.channel.send(string)
-
-    if msg.startswith('$help'):
-        await reply(give_help(friend))
-
-    if msg.startswith('$responding'):
-        await reply(toggle_responses(msg))
-
-    if msg.startswith('$inspire'):
-        await reply(give_inspiration())
-
-    if msg.startswith('$new encouragement'):
-        await reply(create_entry(msg, 'encouragements'))
-
-    if msg.startswith('$delete encouragement'):
-        await reply(delete_entry(msg, 'encouragements'))
-
-    if msg.startswith('$all encouragement'):
-        await reply(list_table('encouragements'))
-
-    if msg.startswith('$new haiku'):
-        await reply(create_entry(msg, 'haikus'))
-
-    if msg.startswith('$delete haiku'):
-        await reply(delete_entry(msg, 'haikus'))
-
-    if msg.startswith('$all haiku'):
-        await reply(list_table('haikus'))
-
-    if msg.find('notice me senpai'):
-        await reply(notice(friend))
+    return random.choice(encouragements)

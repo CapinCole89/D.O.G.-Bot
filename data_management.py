@@ -13,40 +13,25 @@ sad_words = [
     "lonely",
 ]
 
-starter_encouragements = [
-    'Cheer up!',
-    "Just keep swimming!",
-    "Sucking at something is just the first step to being sort of good at something!"
-]
 
+def create_entry(msg, table_name):
+    new_entry = msg.split(f'new {table_name} ', 1)[1]
 
-def create_encouragement(encouraging_message):
-    if "encouragements" in db.keys():
-        encouragements = db["encouragements"]
-        encouragements.append(encouraging_message)
-        db["encouragements"] = encouragements
+    if table_name in db.keys():
+        table_list = db[table_name]
+        table_list.append(new_entry)
+        db[table_name] = table_list
     else:
-        db["encouragements"] = [encouraging_message]
+        db[table_name] = table_list
+
+    return f'New entry added to {table_name}'
 
 
-def delete_encouragement(index):
-    encouragements = db["encouragements"]
-    if len(encouragements) >= index:
-        del encouragements[index]
-        db["encouragements"] = encouragements
+def delete_entry(msg, table_name):
+    index = int(msg.split(f'delete {table_name[0:-1]}'))
+    table_list = db[table_name]
+    if len(table_list) >= index:
+        del table_list[index]
+        db[table_name] = table_list
 
-
-def create_haiku(haiku):
-    if "haikus" in db.keys():
-        haikus = db["haikus"]
-        haikus.append(haiku)
-        db["haikus"] = haikus
-    else:
-        db["haikus"] = [haiku]
-
-
-def delete_haiku(index):
-    haikus = db["haikus"]
-    if len(haikus) >= index:
-        del haikus[index]
-        db["haikus"] = haikus
+    return f'Entry {index} was removed from {table_name}'
