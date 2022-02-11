@@ -24,6 +24,8 @@ async def on_message(message):
     if bot_response:
       await message.channel.send(bot_response)
 
+    
+
 
 keep_alive()
 client.run(discord_token)

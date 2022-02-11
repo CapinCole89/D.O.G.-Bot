@@ -72,6 +72,6 @@ def handle_response(message):
       if 'notice me senpai' in msg:
         return give_notice(friend)
 
-          # This will give 1 random haiku
+      # This will give 1 random haiku
       if ('haiku' in msg):
         return give_haiku()
