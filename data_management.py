@@ -14,7 +14,12 @@ sad_words = [
 ]
 
 
+if db['sad words']:
+    sad_words = db['sad words']
+
+
 def create_entry(msg, table_name):
+    # This add an entry to a table, and create the table if it does not exist
     new_entry = msg.split(f'new {table_name} ', 1)[1]
 
     if table_name in db.keys():
@@ -28,6 +33,7 @@ def create_entry(msg, table_name):
 
 
 def delete_entry(msg, table_name):
+    # This will delete an entry from an existing table
     index = int(msg.split(f'delete {table_name[0:-1]}'))
     table_list = db[table_name]
     if len(table_list) >= index:
