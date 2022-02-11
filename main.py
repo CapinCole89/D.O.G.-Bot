@@ -21,6 +21,9 @@ async def on_ready():
 # This initialises when a message comes into the server
 @client.event
 async def on_message(message):
+    if message.author == client.user:
+      return
+
     bot_response = handle_response(message)
 
     if bot_response:

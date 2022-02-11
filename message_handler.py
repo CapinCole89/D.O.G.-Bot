@@ -1,6 +1,7 @@
-from data_management import create_entry, delete_entry, sad_words
+from replit import db
+from data_management import create_entry, delete_entry, list_table
 from message_responses import give_encouragement, give_help, toggle_responses, \
-    give_inspiration, list_table, notice, give_haiku
+    give_inspiration, give_notice, give_haiku
 
 
 def handle_response(message):
@@ -50,7 +51,7 @@ def handle_response(message):
 
     # This is a silly easter egg for the anime fans
     if msg.startswith('notice me senpai'):
-        return notice(friend)
+        return give_notice(friend)
 
     # This will add a new word to the database
     if msg.startswith('$add sad word'):
@@ -65,5 +66,5 @@ def handle_response(message):
         return list_table('sad words')
 
     # This will see is a message contains a sad word, then responds
-    if any(word in msg for word in sad_words):
+    elif any(word in msg for word in db['sad words']):
         return give_encouragement()

@@ -45,7 +45,7 @@ def toggle_responses(msg):
         return 'Responding is active.'
 
 
-def notice(friend):
+def give_notice(friend):
     # This give the anime easter egg
     return f"I notice you {friend}, but you would be better seen not heard."
 
