@@ -1,10 +1,8 @@
-import random
-from replit import db
 from message_responses import give_encouragement, give_help, toggle_responses, give_inspiration, list_table, notice
 from data_management import create_entry, delete_entry, sad_words
 
 
-async def handle_response(message):
+def handle_response(message):
     msg = message.content.lower()
     author = str(message.author)
     friend = author[0: -5]
@@ -13,35 +11,38 @@ async def handle_response(message):
         await message.channel.send(string)
 
     if msg.startswith('$help'):
-        await reply(give_help(friend))
+        return give_help(friend)
 
-    if msg.startswith('$responding'):
-        await reply(toggle_responses(msg))
+    elif msg.startswith('$responding'):
+        return toggle_responses(msg)
 
-    if msg.startswith('$inspire'):
-        await reply(give_inspiration())
+    elif msg.startswith('$inspire'):
+        return give_inspiration()
 
-    if msg.startswith('$new encouragement'):
-        await reply(create_entry(msg, 'encouragements'))
+    elif msg.startswith('$new encouragement'):
+        return create_entry(msg, 'encouragements')
 
-    if msg.startswith('$delete encouragement'):
-        await reply(delete_entry(msg, 'encouragements'))
+    elif msg.startswith('$delete encouragement'):
+        return delete_entry(msg, 'encouragements')
 
-    if msg.startswith('$all encouragement'):
-        await reply(list_table('encouragements'))
+    elif msg.startswith('$all encouragement'):
+        return list_table('encouragements')
 
-    if msg.startswith('$new haiku'):
-        await reply(create_entry(msg, 'haikus'))
+    elif msg.startswith('$new haiku'):
+        return create_entry(msg, 'haikus')
 
-    if msg.startswith('$delete haiku'):
-        await reply(delete_entry(msg, 'haikus'))
+    elif msg.startswith('$delete haiku'):
+        return delete_entry(msg, 'haikus')
 
-    if msg.startswith('$all haiku'):
-        await reply(list_table('haikus'))
+    elif msg.startswith('$all haiku'):
+        return list_table('haikus')
 
-    if msg.find('notice me senpai'):
-        await reply(notice(friend))
+    elif msg.startswith('notice me senpai'):
+        return notice(friend)
 
     # This will see is a message contains a sad word, then responds
-    if any(word in msg.lower() for word in sad_words):
-        await reply(give_encouragement())
+    elif any(word in msg for word in sad_words):
+        return give_encouragement()
+    
+    else:
+        pass

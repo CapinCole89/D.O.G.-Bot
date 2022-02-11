@@ -1,10 +1,8 @@
 import discord
 import os
-import random
 from replit import db
 from keep_alive import keep_alive
 from message_handler import handle_response
-import data_management as d_m
 
 
 discord_token = os.environ['Token']
@@ -23,8 +21,10 @@ async def on_ready():
 # This initialises when a message comes into the server
 @client.event
 async def on_message(message):
-    handle_response(message)
-    
+    bot_response = handle_response(message)
+
+    if bot_response:
+      await message.channel.send(bot_response)
 
 
 keep_alive()
