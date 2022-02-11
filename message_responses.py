@@ -17,8 +17,7 @@ def give_help(friend):
         "$add haiku | This will add a new haiku to the database \n"
         "$del haiku | This will let you delete a haiku from the system using it's index. \n"
         "$all haikus | This will return a list all off of the currently stored haikus. \n\n"
-        "Have fun, and don't let yourself go hollow!"
-    )
+        "Have fun, and don't let yourself go hollow!")
 
 
 def give_inspiration():
@@ -48,22 +47,6 @@ def toggle_responses(msg):
 def give_notice(friend):
     # This give the anime easter egg
     return f"I notice you {friend}, but you would be better seen not heard."
-
-
-def list_table(table_name):
-    # This will list all entries in a specific table
-    table_list = []
-    output = ''
-
-    if table_name in db.keys():
-        table_list = db[table_name]
-    else:
-        return(f'{table_name} not in database.')
-
-    for i in table_list:
-        output += f'{table_list.index(i)}: {i} \n'
-
-    return f'---{table_name}--- \n\n {output}'
 
 
 def give_encouragement():

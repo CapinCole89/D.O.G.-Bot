@@ -4,7 +4,7 @@ from message_responses import give_encouragement, give_help, toggle_responses, \
     give_inspiration, give_notice, give_haiku
 
 
-def handle_response(message):
+def message_handler(message):
     msg = message.content.lower()
     author = str(message.author)
     friend = author[0: -5]
@@ -57,21 +57,20 @@ def handle_response(message):
     if msg.startswith('$all sad word'):
         return list_table('sad words')
 
-
     # These only trigger if responding is set to true
     if db['responding']:
-      # This will ignore commands
-      if '$' in msg:
-        return
+        # This will ignore commands
+        if '$' in msg:
+            return
 
-      # This will see is a message contains a sad word, then responds
-      if any(word in msg for word in sad_words):
-        return give_encouragement()
+        # This will see is a message contains a sad word, then responds
+        if any(word in msg for word in sad_words):
+            return give_encouragement()
 
-      # This is a silly easter egg for the anime fans
-      if 'notice me senpai' in msg:
-        return give_notice(friend)
+        # This is a silly easter egg for the anime fans
+        if 'notice me senpai' in msg:
+            return give_notice(friend)
 
-      # This will give 1 random haiku
-      if ('haiku' in msg):
-        return give_haiku()
+        # This will give 1 random haiku
+        if ('haiku' in msg):
+            return give_haiku()
