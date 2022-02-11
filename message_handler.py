@@ -1,5 +1,5 @@
 from replit import db
-from data_management import create_entry, delete_entry, list_table
+from data_management import create_entry, delete_entry, list_table, sad_words
 from message_responses import give_encouragement, give_help, toggle_responses, \
     give_inspiration, give_notice, give_haiku
 
@@ -33,10 +33,6 @@ def handle_response(message):
     if msg.startswith('$all encouragement'):
         return list_table('encouragements')
 
-    # This will give 1 random haiku
-    if msg.startswith('haiku'):
-        return give_haiku()
-
     # This will add a new haiku to the database
     if msg.startswith('$add haiku'):
         return create_entry(msg, 'haikus')
@@ -48,10 +44,6 @@ def handle_response(message):
     # This will list all haikus in the database
     if msg.startswith('$all haiku'):
         return list_table('haikus')
-
-    # This is a silly easter egg for the anime fans
-    if msg.startswith('notice me senpai'):
-        return give_notice(friend)
 
     # This will add a new word to the database
     if msg.startswith('$add sad word'):
@@ -65,6 +57,21 @@ def handle_response(message):
     if msg.startswith('$all sad word'):
         return list_table('sad words')
 
-    # This will see is a message contains a sad word, then responds
-    elif any(word in msg for word in db['sad words']):
+
+    # These only trigger if responding is set to true
+    if db['responding']:
+      # This will ignore commands
+      if '$' in msg:
+        return
+
+      # This will see is a message contains a sad word, then responds
+      if any(word in msg for word in sad_words):
         return give_encouragement()
+
+      # This is a silly easter egg for the anime fans
+      if 'notice me senpai' in msg:
+        return give_notice(friend)
+
+          # This will give 1 random haiku
+      if ('haiku' in msg):
+        return give_haiku()
