@@ -3,6 +3,11 @@ import os
 from keep_alive import keep_alive
 from message_handler import message_handler
 
+
+def paragraph_case(string):
+  string = '. '.join(i.capitalize() for i in string.split('. '))
+
+
 def main():
   discord_token = os.environ['Token']
   client = discord.Client()

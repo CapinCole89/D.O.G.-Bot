@@ -1,4 +1,3 @@
-from turtle import up
 from replit import db
 from data_management import create_entry, delete_entry, list_table, sad_words, retrieve_entry, update_entry
 from message_responses import give_encouragement, give_help, toggle_responses, \
@@ -16,21 +15,21 @@ def message_handler(message):
     tables = ['haikus', 'sad words', 'encouragements']
 
     if msg.startswith('$'):
-        command = msg.split(' ', 1)[0]
-        value = msg.split(' ', 1)[1]
+        command = msg.split(' ')[0]
+        value += msg.split(command, 1)[1]
 
-        for title in tables:
-            if value.startswith(title):
-                table_name = title
-                value = value.split(f'{table_name} ', 1)[1]
-
+    for title in tables:
+        if value.startswith(f' {title[:-1]}'):
+            table_name = title
+            
     # This will list all values stored in the specified table
     if command == '$all':
         return list_table(table_name)
 
     # This will retrive a specific value stored in the specified table
     if command == '$get':
-        return retrieve_entry(value, table_name)
+        value = value.split(' ', 2)[2]
+        return retrieve_entry(int(value), table_name)
 
     # This will add an entry to the specified table
     if command == '$add':
@@ -50,7 +49,7 @@ def message_handler(message):
 
     # This goggles the static responses
     if command == '$responding':
-        return toggle_responses(message)
+        return toggle_responses(msg)
 
     # This gives an inspirational quote
     if command == '$inspire':
@@ -59,10 +58,6 @@ def message_handler(message):
 
     # These only trigger if responding is set to true
     if db['responding']:
-        # This will ignore commands
-        if msg.startswith('$'):
-            return
-
         # This will see is a message contains a sad word, then responds
         if any(word in msg for word in sad_words):
             return give_encouragement()

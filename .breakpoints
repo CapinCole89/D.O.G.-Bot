@@ -3,9 +3,49 @@
     "data_management.py": [
       {
         "id": "0619d5a0-ca0b-45e7-b283-709a6d2ef639",
-        "line": 20,
-        "version": 239,
-        "index": 320
+        "line": 1,
+        "version": 299,
+        "index": 5
+      }
+    ],
+    "message_handler.py": [
+      {
+        "id": "df8e6de3-d2ca-40bc-a1a1-ede93311ca2c",
+        "line": 22,
+        "version": 1134,
+        "index": 640
+      },
+      {
+        "id": "2358f668-eb48-4f9a-aadb-a4a258cb342e",
+        "line": 24,
+        "version": 1134,
+        "index": 730
+      },
+      {
+        "id": "3146faf5-bb43-471b-839b-a870b5b60332",
+        "line": 24,
+        "version": 1134,
+        "index": 730
+      },
+      {
+        "id": "b477766b-16ca-4eb3-b260-24a62dddba35",
+        "line": 25,
+        "version": 1455,
+        "index": 767
+      },
+      {
+        "id": "6e21a0dd-934d-4aa6-9476-e1060c57ed17",
+        "line": 61,
+        "version": 1576,
+        "index": 1953
+      }
+    ],
+    "message_responses.py": [
+      {
+        "id": "824c4dbe-705f-4504-84da-7fbbc3f39633",
+        "line": 34,
+        "version": 7,
+        "index": 1529
       }
     ],
     "reply.py": [

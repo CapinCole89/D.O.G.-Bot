@@ -31,17 +31,15 @@ def give_inspiration():
 
 def toggle_responses(msg):
     # This will toggle the auto-responses (ones that were not specifically requested)
-    value = msg.split("$responding ", 1)[1]
-
     if "responding" not in db.keys():
         db["responding"] = True
 
-    if value.lower() == "false":
-        db["responding"] = False
-        return 'Responding is disabled.'
-    else:
-        db["responding"] = True
-        return 'Responding is active.'
+    if 'false' in msg:
+      db["responding"] = False
+      return 'Responding is disabled.'
+
+    db["responding"] = True
+    return 'Responding is active.'
 
 
 def give_notice(friend):
